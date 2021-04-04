@@ -2,7 +2,39 @@ import React, { Component,useState,useEffect  } from 'react';
 import {StyleSheet,Dimensions,Image,ImageBackground, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Container,Label, View,Text, Form, Item, Input,Button, Content} from 'native-base';
 import auth from '@react-native-firebase/auth';
+
+
+
+
 const Login =(props) => {
+
+    const [Email,setEmail]=useState("")
+    const [Password,setPassword]=useState("")
+    
+    
+    const SignIn =()=>{
+        auth()
+      .signInWithEmailAndPassword(Email, Password)
+      .then(() => {
+       
+      })
+      .catch(error => {
+          setEmail("")
+          setPassword("")
+        if (error.code === 'auth/email-already-in-use') {
+            alert('That email address is already in use!');
+        }
+    
+        if (error.code === 'auth/invalid-email') {
+            alert('That email address is invalid!');
+        }
+    
+        alert(error);
+      });
+    }
+    
+
+
      return (
           <Container style={styles.container} >
          <ImageBackground source={require('./images/background1.jpg')} style={styles.backgroundImage}>
@@ -17,22 +49,22 @@ const Login =(props) => {
 <Form>
 
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="EMAIL" placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setEmail(text)} value={Email} style={styles.input} placeholder="EMAIL" placeholderTextColor="#9e9e9e"  />
               </Item>
 
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setPassword(text)} value={Password} style={styles.input} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="#9e9e9e"  />
               </Item>
 
               
 </Form>
 
 <View style={styles.btnContainer}>
-<Button style={styles.btnBox}>
-            <Text onPress={()=>props.navigation.navigate("User")} style={styles.btnText}>LOGIN</Text>
+<Button onPress={SignIn} style={styles.btnBox}>
+            <Text  style={styles.btnText}>LOGIN</Text>
           </Button>
-          <Button style={styles.btnBox}>
-            <Text onPress={()=>props.navigation.navigate("Register")} style={styles.btnText}>REGISTER</Text>
+          <Button onPress={()=>props.navigation.navigate("Register")} style={styles.btnBox}>
+            <Text  style={styles.btnText}>REGISTER</Text>
           </Button>
     </View>
             </View>
@@ -59,7 +91,8 @@ const styles = StyleSheet.create({
     },
     logo :{
         width:Dimensions.get('window').width*0.75,
-        resizeMode: "contain"
+        resizeMode: "contain",
+        opacity:0.9
         
         
     },

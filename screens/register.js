@@ -1,9 +1,73 @@
 import React, { Component,useState,useEffect  } from 'react';
 import {StyleSheet,Dimensions,Image,ImageBackground, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Container,Label, View,Text, Form, Item, Input,Button, Content} from 'native-base';
+import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-const Login =(props) => {
-     return (
+
+  const Register =(props) => {
+  const Key =database().ref('users').push().key
+  
+  const setValue=()=>{
+  setName("")
+    setPassword("")
+    setEmail("")
+    setAddress("")
+    setMobile("")
+  
+  }
+  const [Email,setEmail]=useState("")
+  const [Password,setPassword]=useState("")
+  const [Name,setName]=useState("")
+  const [Address,setAddress]=useState("")
+  const [Mobile,setMobile]=useState("")
+  const users={
+    Email:Email,
+    Password:Password,
+    Name:Name,
+    Address:Address,
+    Mobile:Mobile,
+    Key:Key
+  }
+  
+ 
+  
+const createUser=()=>{
+  auth()
+  .createUserWithEmailAndPassword(Email, Password)
+  .then(() => {
+  setValue()
+    
+    {Name!=="" && Password!=="" && Email!=="" && Address!=="" && Mobile!=="" ?
+    database().ref("/users" ).child(Key).set(users)
+    
+    :
+    alert("Please Fill All Blanks")
+  }
+
+
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      alert('That email address is already in use!');
+    }
+
+    if (error.code === 'auth/invalid-email') {
+      alert('That email address is invalid!');
+    }
+
+    alert(error);
+  });
+
+
+
+
+}
+
+
+
+
+
+  return (
          <Container style={styles.container} >
               <ImageBackground source={require('./images/background1.jpg')} style={styles.backgroundImage}>
 <ScrollView>
@@ -13,29 +77,29 @@ const Login =(props) => {
 <Form>
 
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="NAME" placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setName(text)} value={Name} style={styles.input} placeholder="NAME" placeholderTextColor="#616161"  />
               </Item>
 
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="EMAIL" placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setEmail(text)} textContentType="emailAddress" value={Email} style={styles.input} placeholder="EMAIL" placeholderTextColor="#616161"  />
               </Item>
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setPassword(text)} value={Password} style={styles.input} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="#616161"  />
               </Item>
 
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="ADDRESS" placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setAddress(text)} value={Address} style={styles.input} placeholder="ADDRESS" placeholderTextColor="#616161"  />
               </Item>
             <Item style={styles.inputBox} >
-              <Input style={styles.input} placeholder="MOBILE NUMBER" keyboardType="phone-pad"  placeholderTextColor="white"  />
+              <Input onChangeText={(text)=>setMobile(text)} value={Mobile} style={styles.input} placeholder="MOBILE NUMBER" keyboardType="phone-pad"  placeholderTextColor="#616161"  />
               </Item>
 
               
 </Form>
 
 <View style={styles.btnContainer}>
- <Button style={styles.btnBox}>
-            <Text onPress={()=>props.navigation.navigate("Register")} style={styles.btnText}>REGISTER</Text>
+ <Button onPress={createUser} style={styles.btnBox}>
+            <Text  style={styles.btnText}>REGISTER</Text>
           </Button>
     </View>
             </View>
@@ -48,7 +112,7 @@ const Login =(props) => {
     );
   }
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
     container:{

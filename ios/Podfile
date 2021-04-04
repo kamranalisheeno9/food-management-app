@@ -12,6 +12,8 @@ target 'FoodWastageManagement' do
     :hermes_enabled => false
   )
 
+  pod 'ReactNativeGetLocation', :path => '../node_modules/react-native-get-location'
+
   target 'FoodWastageManagementTests' do
     inherit! :complete
     # Pods for testing
