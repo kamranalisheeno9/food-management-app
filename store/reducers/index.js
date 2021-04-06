@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     currentUser:{},
     mergeUid:{},
     location:[],
-    status:[]
+    status:[],
+    locationEvent:"",
 };
 export default  (state = INITIAL_STATE,action) =>  {
     switch (action.type) {
@@ -56,6 +57,14 @@ export default  (state = INITIAL_STATE,action) =>  {
             return({
             ...state,
                datalist:action.payload
+            }
+            
+            )
+            case "ADDNEWLOCATION":
+               // console.log(state.locationEvent)
+            return({
+            ...state,
+            locationEvent:action.payload
             }
             
             )

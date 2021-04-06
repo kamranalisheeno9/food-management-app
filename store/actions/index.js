@@ -46,10 +46,19 @@ export const getEvents =()=>{
     
             })
         })
+
+        database().ref("/locationKey").on("value",(data)=>{
+            console.log(data.val)
+            dispatch({
+                type:"ADDNEWLOCATION",
+                payload:data.val()
+    
+            })
+        })
         const location=[]
-        database().ref("/location").on("child_added",(data)=>{
+        database().ref(`/location`).on("value",(data)=>{
             location.push(data.val())
-            // console.log(location)
+            console.log(location)
             dispatch({
                 type:"ADDLOCATION",
                 payload:location

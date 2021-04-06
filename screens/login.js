@@ -8,8 +8,8 @@ import auth from '@react-native-firebase/auth';
 
 const Login =(props) => {
 
-    const [Email,setEmail]=useState("")
-    const [Password,setPassword]=useState("")
+    const [Email,setEmail]=useState("Email")
+    const [Password,setPassword]=useState("Password")
     
     
     const SignIn =()=>{
@@ -19,8 +19,8 @@ const Login =(props) => {
        
       })
       .catch(error => {
-          setEmail("")
-          setPassword("")
+          setEmail("Email")
+          setPassword("Password")
         if (error.code === 'auth/email-already-in-use') {
             alert('That email address is already in use!');
         }
@@ -29,7 +29,7 @@ const Login =(props) => {
             alert('That email address is invalid!');
         }
     
-        alert(error);
+        alert(error.message);
       });
     }
     

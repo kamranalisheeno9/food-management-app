@@ -11,8 +11,9 @@ const GetInvitation =(props) => {
     const [mergekey3,setmergekey3]=useState("")
     useEffect( () => {
         props.addEvents()
+        merge3
         // console.log(props.mergeUid)
-        mergehide()
+        // mergehide()
            },[]); 
    const mergehide =()=>{
 

@@ -9,14 +9,6 @@ import {connect} from 'react-redux'
 
 // create a component
 const Maps =(props)=> {
-        // <MapView
-        //     initialRegion={{
-        //       latitude: v.lat,
-        //       longitude: v.lng,
-        //       latitudeDelta: 0.0922,
-        //       longitudeDelta: 0.0421,
-        //     }}
-        //   />
         
 
     useEffect( () => {
@@ -27,6 +19,7 @@ const Maps =(props)=> {
         return (
     props.location.map((v,i)=>{
 return(
+    v.mergeUid === props.mergeUid ?
 
     <MapView key={i} style={{width:"100%",height:"100%"}}
     
@@ -50,6 +43,8 @@ return(
 
               </Marker>
               </MapView>
+              :
+              null
                   )
         })
 

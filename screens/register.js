@@ -9,14 +9,14 @@ import auth from '@react-native-firebase/auth';
   
   const setValue=()=>{
   setName("")
-    setPassword("")
-    setEmail("")
+    setPassword("Password")
+    setEmail("Email")
     setAddress("")
     setMobile("")
   
   }
-  const [Email,setEmail]=useState("")
-  const [Password,setPassword]=useState("")
+  const [Email,setEmail]=useState("Email")
+  const [Password,setPassword]=useState("Password")
   const [Name,setName]=useState("")
   const [Address,setAddress]=useState("")
   const [Mobile,setMobile]=useState("")
