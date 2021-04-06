@@ -10,7 +10,6 @@ import GetInvitation from "../screens/getInvitation"
 import AcceptInvitation from "../screens/acceptInvitation"
 import Maps from "../screens/location"
 import GetMaps from "../screens/getlocation"
-import Data from "../screens/totaldata"
 import {StyleSheet} from 'react-native'
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -162,21 +161,6 @@ const Navigate =()=>{
                         name="Accept Invitation"
                         component={AcceptInvitation}/> 
                          
-    <Stack.Screen
-                    
-                        options={{
-                                title: 'LIST GENERATED',
-                                headerStyle: {
-                                    backgroundColor: '#424242',
-                                    height: 60
-                                },
-                                headerTintColor: '#FFA300',
-                                headerTitleStyle: {}
-                            }}
-    
-    
-                        name="Data"
-                        component={Data}/> 
                          
     <Stack.Screen
                     

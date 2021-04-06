@@ -10,11 +10,25 @@ import { setEnabled } from 'react-native/Libraries/Performance/Systrace';
 const AcceptInvitation =(props) => {
     const [check1,setCheck1]=useState(true)
     const [check2,setCheck2]=useState(false)
-    const [people,setpeople]=useState("")
+const goto =()=>{
+    props.navigation.navigate("User") 
+    alert("Successfully Invitation Accepted")  
 
+}
     const addPreference =()=>{
-        alert("Successfully Invitation Accepted")   
-        props.navigation.navigate("User") 
+        {check1 === true ?
+            
+            goto()
+            : check2 === true ?
+            goto()
+
+            : check1=== true && check2 === true ?
+            goto()
+            :
+            alert("Please Fill The Blanks") 
+
+
+        }
     }
      return (
          <Container style={styles.container} >
@@ -30,14 +44,14 @@ YOU PREFEENCES
         <ListItem style={styles.checkBoxContainer}>
             <CheckBox  onPress={()=>setCheck1(!check1)} style={ check1 ?  styles.checkBox : styles.checkBox1 }  checked={check1} />
             <Body style={styles.bodyCheckBox}>
-              <Text style={styles.checkBoxText}>Daily Stand Up</Text>
+              <Text style={styles.checkBoxText}>Vegetarian</Text>
             </Body>
           </ListItem>
       
         <ListItem style={styles.checkBoxContainer}>
             <CheckBox onPress={()=>setCheck2(!check2)} style={ check2 ?  styles.checkBox : styles.checkBox1 }   checked={check2} />
             <Body style={styles.bodyCheckBox}>
-              <Text style={styles.checkBoxText}>Daily Stand Up</Text>
+              <Text style={styles.checkBoxText}>Non Vegeterian</Text>
             </Body>
           </ListItem>
       
